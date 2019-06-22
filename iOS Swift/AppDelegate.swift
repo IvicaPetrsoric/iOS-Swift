@@ -18,8 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
-
+        window?.rootViewController = UINavigationController(rootViewController: QuestionController())
+        
+        UINavigationBar.appearance().barTintColor = UIColor.orange
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        application.statusBarStyle = .lightContent
         return true
     }
 
