@@ -13,6 +13,12 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
+    var trackerNode: SCNNode!
+    var dice1Node: SCNNode!
+    var dice2Node: SCNNode!
+    var trackingPosition = SCNVector3Make(0, 0, 0)
+    var started = false
+    var foundSurface = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/dice.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
@@ -47,54 +53,96 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    func rollDice(dice: SCNNode) {
+        if dice.physicsBody == nil {
+            dice.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        }
+        
+        dice.physicsBody?.applyForce(SCNVector3Make(0.0, 3.0, 0.0), asImpulse: true)
+        dice.physicsBody?.applyTorque(SCNVector4Make(0.5, 0.5, 0.5, 0.075), asImpulse: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let result = sceneView.hitTest(touch.location(in: sceneView), types: [.featurePoint])
-        guard let hitResult = result.last else { return }
-        let hitTransform =  SCNMatrix4(hitResult.worldTransform)
-        let hitVector = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43)
-        createBall(position: hitVector)
+        if foundSurface {
+            if started {
+                // dice rolling
+                rollDice(dice: dice1Node)
+                rollDice(dice: dice2Node)
+            } else {
+                started = true
+                
+                trackerNode.removeFromParentNode()
+                
+                let floorPlane = SCNPlane(width: 50, height: 50)
+                floorPlane.firstMaterial?.diffuse.contents = UIColor.clear
+                
+                let floorNode = SCNNode(geometry: floorPlane)
+                floorNode.position = trackingPosition
+                floorNode.eulerAngles.x = -.pi * 0.5
+                
+                sceneView.scene.rootNode.addChildNode(floorNode)
+                floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+                
+                guard let dice = sceneView.scene.rootNode.childNode(withName: "dice", recursively: false) else { return }
+                dice1Node = dice
+                dice1Node.position = SCNVector3Make(trackingPosition.x, trackingPosition.y, trackingPosition.z)
+                dice1Node.isHidden = false
+                
+                dice2Node = dice1Node.clone()
+                dice2Node.position.x = trackingPosition.x + 0.4
+                
+                sceneView.scene.rootNode.addChildNode(dice2Node)
+            }
+        }
     }
     
-    private func createBall(position: SCNVector3) {
-        var ballShape = SCNSphere(radius: 0.01)
-        var ballNode = SCNNode(geometry: ballShape)
-        ballNode.position = position
-        sceneView.scene.rootNode.addChildNode(ballNode)
-    }
-    
-    
-    
-    // MARK: - ARSCNViewDelegate
-    
-    /*
-     // Override to create and configure nodes for anchors added to the view's session.
-     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-     let node = SCNNode()
-     
-     return node
-     }
-     */
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        guard !started else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let hitTest = self?.sceneView.hitTest(CGPoint(x: (self?.view.frame.midX)!, y: (self?.view.frame.midY)!), types: [.existingPlane, .featurePoint]).first else { return }
+            
+            let trans = SCNMatrix4(hitTest.worldTransform)
+            
+            self?.setSurface(trans: trans)
+        }
         
+        
+        //        trackingPosition = SCNVector3Make(trans.m41, trans.m42, trans.m43)
+        //
+        //        if !foundSurface {
+        //            foundSurface = true
+        //
+        //            let trackerPlane = SCNPlane(width: 0.2, height: 0.2)
+        //            trackerPlane.firstMaterial?.diffuse.contents = UIColor.red
+        //            trackerPlane.firstMaterial?.isDoubleSided = true
+        //
+        //            trackerNode = SCNNode(geometry: trackerPlane)
+        //            trackerNode.eulerAngles.x = -.pi * 0.5
+        //
+        //            sceneView.scene.rootNode.addChildNode(trackerNode)
+        //        }
+        //
+        //        trackerNode.position = trackingPosition
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+    private func setSurface(trans: SCNMatrix4) {
+        trackingPosition = SCNVector3Make(trans.m41, trans.m42, trans.m43)
         
+        if !foundSurface {
+            foundSurface = true
+            
+            let trackerPlane = SCNPlane(width: 0.2, height: 0.2)
+            trackerPlane.firstMaterial?.diffuse.contents = UIColor.red
+            trackerPlane.firstMaterial?.isDoubleSided = true
+            
+            trackerNode = SCNNode(geometry: trackerPlane)
+            trackerNode.eulerAngles.x = -.pi * 0.5
+            
+            sceneView.scene.rootNode.addChildNode(trackerNode)
+        }
+        
+        trackerNode.position = trackingPosition
     }
     
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
+    
 }
-
-
