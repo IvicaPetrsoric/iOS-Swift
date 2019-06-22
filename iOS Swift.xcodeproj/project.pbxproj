@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B547ADC22BE87D50030AD99 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B547ADA22BE87D50030AD99 /* ContactCell.swift */; };
+		6B547ADD22BE87D50030AD99 /* ExpandableNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B547ADB22BE87D50030AD99 /* ExpandableNames.swift */; };
 		6BACB91422BCE09E00A7D611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB91322BCE09E00A7D611 /* AppDelegate.swift */; };
 		6BACB91622BCE09E00A7D611 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB91522BCE09E00A7D611 /* ViewController.swift */; };
 		6BACB91922BCE09E00A7D611 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BACB91722BCE09E00A7D611 /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B547ADA22BE87D50030AD99 /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		6B547ADB22BE87D50030AD99 /* ExpandableNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableNames.swift; sourceTree = "<group>"; };
 		6BACB91022BCE09E00A7D611 /* iOS Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BACB91322BCE09E00A7D611 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BACB91522BCE09E00A7D611 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +62,8 @@
 			children = (
 				6BACB91322BCE09E00A7D611 /* AppDelegate.swift */,
 				6BACB91522BCE09E00A7D611 /* ViewController.swift */,
+				6B547ADA22BE87D50030AD99 /* ContactCell.swift */,
+				6B547ADB22BE87D50030AD99 /* ExpandableNames.swift */,
 				6BACB92B22BCE5CB00A7D611 /* Extensions */,
 				6BACB92522BCE0DE00A7D611 /* Supporting Files */,
 				6BACB91F22BCE0A000A7D611 /* Info.plist */,
@@ -154,9 +160,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B547ADC22BE87D50030AD99 /* ContactCell.swift in Sources */,
 				6BACB91622BCE09E00A7D611 /* ViewController.swift in Sources */,
 				6BACB91422BCE09E00A7D611 /* AppDelegate.swift in Sources */,
 				6BACB92A22BCE5C600A7D611 /* UIView+Layout.swift in Sources */,
+				6B547ADD22BE87D50030AD99 /* ExpandableNames.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
