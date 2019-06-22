@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
+        window?.rootViewController = AirplaneSeatingViewController(collectionViewLayout: UICollectionViewFlowLayout())
 
         return true
     }
