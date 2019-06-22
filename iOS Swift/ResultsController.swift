@@ -10,7 +10,21 @@ import UIKit
 
 class ResultsController: UIViewController{
     
-    var questionList = [Question]()
+    var questionList: [Question]! {
+        didSet {
+            let names = ["Ross", "Joey", "Chandler", "Monica", "Reachel", "Phoebe"]
+            var score = 0
+            
+            for question in questionList {
+                if let index = question.selectedAnswerIndex {
+                    score = score + index
+                }
+            }
+            
+            let result = names[score % names.count]
+            resultsLabel.text = "Congratulation, you're a total \(result)!"
+        }
+    }
     
     private let resultsLabel: UILabel = {
         let label = UILabel()
@@ -33,15 +47,7 @@ class ResultsController: UIViewController{
         view.addSubview(resultsLabel)
         resultsLabel.fillSuperview()
         
-        let names = ["Ross", "Joey", "Chandler", "Monica", "Reachel", "Phoebe"]
-        var score = 0
-        
-        for question in questionList {
-            score = score + question.selectedAnswerIndex!
-        }
-        
-        let result = names[score % names.count]
-        resultsLabel.text = "Congratulation, you're a total \(result)!"
+
     }
     
     @objc func done(){
