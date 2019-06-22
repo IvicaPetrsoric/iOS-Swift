@@ -7,108 +7,141 @@
 //
 
 import UIKit
+import SceneKit
 import ARKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ARSCNViewDelegate {
     
-    @IBOutlet weak var sceneView: ARSCNView!
-    let configuration = ARWorldTrackingConfiguration()
+    @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-        self.sceneView.session.run(configuration)
-        self.sceneView.automaticallyUpdatesLighting = true
+        // Set the view's delegate
+        sceneView.delegate = self
+        
+        // Show statistics such as fps and timing information
+        sceneView.showsStatistics = true
+        
+        // Create a new scene
+        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        
+        // Set the scene to the view
+        sceneView.scene = scene
+        
+        setupScene()
     }
     
-    @IBAction func add(_ sender: UIButton) {
-        let doorNode = SCNNode(geometry: SCNPlane(width: 0.03, height: 0.06))
-        doorNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        //        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.05))
-        //        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
         
-        let boxNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
-        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        // Run the view's session
+        sceneView.session.run(configuration)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        // Pause the view's session
+        sceneView.session.pause()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+    }
+    
+    
+    func setupScene() {
         let node = SCNNode()
+        node.position = SCNVector3.init(0, 0, 0)
         
-        // capsule
-        //        node.geometry = SCNCapsule(capRadius: 0.1, height: 0.3)
+        let leftWall = createBox(isDoor: false)
+        leftWall.position = SCNVector3.init((-length / 2) + width, 0, 0)
+        leftWall.eulerAngles = SCNVector3.init(0, 180.0.degreesToRadians, 0)
         
-        // cone
-        //        node.geometry = SCNCone(topRadius: 0.1, bottomRadius: 0.3, height: 1)
+        let rightWall = createBox(isDoor: false)
+        rightWall.position = SCNVector3.init((length / 2) - width, 0, 0)
         
-        // cylinder
-        //        node.geometry = SCNCylinder(radius: 0.2, height: 0.2)
+        let topWall = createBox(isDoor: false)
+        topWall.position = SCNVector3.init(0, (height / 2) - width, 0)
+        topWall.eulerAngles = SCNVector3.init(0, 0, 90.0.degreesToRadians)
         
-        // sphere
-        //        node.geometry = SCNSphere(radius: 0.1)
+        let bottomWall = createBox(isDoor: false)
+        bottomWall.position = SCNVector3.init(0, (-height / 2) + width, 0)
+        bottomWall.eulerAngles = SCNVector3.init(0, 0, -90.0.degreesToRadians)
         
-        // tube
-        //        node.geometry = SCNTube(innerRadius: 0.2, outerRadius: 0.3, height: 0.5)
+        let backWall = createBox(isDoor: false)
+        backWall.position = SCNVector3.init(0, 0, (-length / 2) + width)
+        backWall.eulerAngles = SCNVector3.init(0, 90.degreesToRadians, 0)
         
-        // torus
-        //        node.geometry = SCNTorus(ringRadius: 0.3, pipeRadius: 0.2)
+        let leftDoorSide = createBox(isDoor: true)
+        leftDoorSide.position = SCNVector3.init((-length / 2) + doorLength / 2, 0, length / 2)
+        leftDoorSide.eulerAngles = SCNVector3.init(0, -90.degreesToRadians, 0)
         
-        // plane
-        //        node.geometry = SCNPlane(width: 0.2, height: 0.2)
+        let rightDoorSide = createBox(isDoor: true)
+        rightDoorSide.position = SCNVector3.init((length / 2) - doorLength / 2, 0, length / 2)
+        rightDoorSide.eulerAngles = SCNVector3.init(0, -90.degreesToRadians, 0)
         
-        // pyramid
-        node.geometry = SCNPyramid(width: 0.1, height: 0.1, length: 0.1)
+        // light
+        let light = SCNLight()
+        light.type = .spot
+        light.spotInnerAngle = 70
+        light.spotOuterAngle = 120
+        light.zNear = 0.00001
+        light.zFar = 5
+        light.castsShadow = true
+        light.shadowRadius = 200
+        light.shadowColor = UIColor.black.withAlphaComponent(0.3)
+        light.shadowMode = .deferred
+        let constraint = SCNLookAtConstraint(target: bottomWall)
+        constraint.isGimbalLockEnabled = true
         
-        // box
-        //        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.1/2)
+        let lightNode = SCNNode()
+        lightNode.light = light
+        lightNode.position = SCNVector3.init(0, height / 2 - width, 0)
+        lightNode.constraints = [constraint]
         
-        //        let path = UIBezierPath()
-        //        path.move(to: CGPoint(x: 0, y: 0))
-        //        path.addLine(to: CGPoint(x: 0, y: 0.2))
-        //        path.addLine(to: CGPoint(x: 0.2, y: 0.3))
-        //        path.addLine(to: CGPoint(x: 0.4, y: 0.2))
-        //        path.addLine(to: CGPoint(x: 0.4, y: 0))
-        //
-        //        let shape = SCNShape(path: path, extrusionDepth: 0.2)
-        //
-        //        node.geometry = shape
+        node.addChildNode(lightNode)
         
-        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        //        let x = randomNumbers(firstNum: -0.3, secondNumb: 0.3)
-        //        let y = randomNumbers(firstNum: -0.3, secondNumb: 0.3)
-        //        let z = randomNumbers(firstNum: -0.3, secondNumb: 0.3)
-        
-        //        node.position = SCNVector3(x, y, z)
-        
-        node.position = SCNVector3(0.2, 0.3, -0.2)
-        boxNode.position = SCNVector3(0, -0.05, 0)
-        doorNode.position = SCNVector3(0, -0.02, 0.053)
+        node.addChildNode(leftWall)
+        node.addChildNode(rightWall)
+        node.addChildNode(topWall)
+        node.addChildNode(bottomWall)
+        node.addChildNode(backWall)
+        node.addChildNode(leftDoorSide)
+        node.addChildNode(rightDoorSide)
         
         self.sceneView.scene.rootNode.addChildNode(node)
-        node.addChildNode(boxNode)
-        boxNode.addChildNode(doorNode)
-        
-        //        self.sceneView.scene.rootNode..addChildNode(cylinderNode)
-        
     }
-    
-    @IBAction func reset(_ sender: UIButton) {
-        restartSession()
-    }
-    
-    func restartSession() {
-        self.sceneView.session.pause()
-        self.sceneView.scene.rootNode.enumerateHierarchy { (node, _) in
-            node.removeFromParentNode()
-        }
-        
-        self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-    }
-    
-    func randomNumbers(firstNum: CGFloat, secondNumb: CGFloat) -> CGFloat{
-        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNumb) + min(firstNum, secondNumb)
-    }
-    
-    
-}
 
+    
+    // MARK: - ARSCNViewDelegate
+    
+    /*
+     // Override to create and configure nodes for anchors added to the view's session.
+     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+     let node = SCNNode()
+     
+     return node
+     }
+     */
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user
+        
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        
+    }
+}
