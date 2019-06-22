@@ -7,142 +7,108 @@
 //
 
 import UIKit
-import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController {
     
-    @IBOutlet var sceneView: ARSCNView!
-    var trackerNode: SCNNode!
-    var dice1Node: SCNNode!
-    var dice2Node: SCNNode!
-    var trackingPosition = SCNVector3Make(0, 0, 0)
-    var started = false
-    var foundSurface = false
+    @IBOutlet weak var sceneView: ARSCNView!
+    let configuration = ARWorldTrackingConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/dice.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        self.sceneView.session.run(configuration)
+        self.sceneView.automaticallyUpdatesLighting = true
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @IBAction func add(_ sender: UIButton) {
+        let doorNode = SCNNode(geometry: SCNPlane(width: 0.03, height: 0.06))
+        doorNode.geometry?.firstMaterial?.diffuse.contents = UIColor.white
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
+        //        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.05))
+        //        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
         
-        // Run the view's session
-        sceneView.session.run(configuration)
+        let boxNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
+        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        
+        let node = SCNNode()
+        
+        // capsule
+        //        node.geometry = SCNCapsule(capRadius: 0.1, height: 0.3)
+        
+        // cone
+        //        node.geometry = SCNCone(topRadius: 0.1, bottomRadius: 0.3, height: 1)
+        
+        // cylinder
+        //        node.geometry = SCNCylinder(radius: 0.2, height: 0.2)
+        
+        // sphere
+        //        node.geometry = SCNSphere(radius: 0.1)
+        
+        // tube
+        //        node.geometry = SCNTube(innerRadius: 0.2, outerRadius: 0.3, height: 0.5)
+        
+        // torus
+        //        node.geometry = SCNTorus(ringRadius: 0.3, pipeRadius: 0.2)
+        
+        // plane
+        //        node.geometry = SCNPlane(width: 0.2, height: 0.2)
+        
+        // pyramid
+        node.geometry = SCNPyramid(width: 0.1, height: 0.1, length: 0.1)
+        
+        // box
+        //        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.1/2)
+        
+        //        let path = UIBezierPath()
+        //        path.move(to: CGPoint(x: 0, y: 0))
+        //        path.addLine(to: CGPoint(x: 0, y: 0.2))
+        //        path.addLine(to: CGPoint(x: 0.2, y: 0.3))
+        //        path.addLine(to: CGPoint(x: 0.4, y: 0.2))
+        //        path.addLine(to: CGPoint(x: 0.4, y: 0))
+        //
+        //        let shape = SCNShape(path: path, extrusionDepth: 0.2)
+        //
+        //        node.geometry = shape
+        
+        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        //        let x = randomNumbers(firstNum: -0.3, secondNumb: 0.3)
+        //        let y = randomNumbers(firstNum: -0.3, secondNumb: 0.3)
+        //        let z = randomNumbers(firstNum: -0.3, secondNumb: 0.3)
+        
+        //        node.position = SCNVector3(x, y, z)
+        
+        node.position = SCNVector3(0.2, 0.3, -0.2)
+        boxNode.position = SCNVector3(0, -0.05, 0)
+        doorNode.position = SCNVector3(0, -0.02, 0.053)
+        
+        self.sceneView.scene.rootNode.addChildNode(node)
+        node.addChildNode(boxNode)
+        boxNode.addChildNode(doorNode)
+        
+        //        self.sceneView.scene.rootNode..addChildNode(cylinderNode)
+        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
+    @IBAction func reset(_ sender: UIButton) {
+        restartSession()
     }
     
-    func rollDice(dice: SCNNode) {
-        if dice.physicsBody == nil {
-            dice.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+    func restartSession() {
+        self.sceneView.session.pause()
+        self.sceneView.scene.rootNode.enumerateHierarchy { (node, _) in
+            node.removeFromParentNode()
         }
         
-        dice.physicsBody?.applyForce(SCNVector3Make(0.0, 3.0, 0.0), asImpulse: true)
-        dice.physicsBody?.applyTorque(SCNVector4Make(0.5, 0.5, 0.5, 0.075), asImpulse: true)
+        self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if foundSurface {
-            if started {
-                // dice rolling
-                rollDice(dice: dice1Node)
-                rollDice(dice: dice2Node)
-            } else {
-                started = true
-                
-                trackerNode.removeFromParentNode()
-                
-                let floorPlane = SCNPlane(width: 50, height: 50)
-                floorPlane.firstMaterial?.diffuse.contents = UIColor.clear
-                
-                let floorNode = SCNNode(geometry: floorPlane)
-                floorNode.position = trackingPosition
-                floorNode.eulerAngles.x = -.pi * 0.5
-                
-                sceneView.scene.rootNode.addChildNode(floorNode)
-                floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-                
-                guard let dice = sceneView.scene.rootNode.childNode(withName: "dice", recursively: false) else { return }
-                dice1Node = dice
-                dice1Node.position = SCNVector3Make(trackingPosition.x, trackingPosition.y, trackingPosition.z)
-                dice1Node.isHidden = false
-                
-                dice2Node = dice1Node.clone()
-                dice2Node.position.x = trackingPosition.x + 0.4
-                
-                sceneView.scene.rootNode.addChildNode(dice2Node)
-            }
-        }
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        guard !started else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let hitTest = self?.sceneView.hitTest(CGPoint(x: (self?.view.frame.midX)!, y: (self?.view.frame.midY)!), types: [.existingPlane, .featurePoint]).first else { return }
-            
-            let trans = SCNMatrix4(hitTest.worldTransform)
-            
-            self?.setSurface(trans: trans)
-        }
-        
-        
-        //        trackingPosition = SCNVector3Make(trans.m41, trans.m42, trans.m43)
-        //
-        //        if !foundSurface {
-        //            foundSurface = true
-        //
-        //            let trackerPlane = SCNPlane(width: 0.2, height: 0.2)
-        //            trackerPlane.firstMaterial?.diffuse.contents = UIColor.red
-        //            trackerPlane.firstMaterial?.isDoubleSided = true
-        //
-        //            trackerNode = SCNNode(geometry: trackerPlane)
-        //            trackerNode.eulerAngles.x = -.pi * 0.5
-        //
-        //            sceneView.scene.rootNode.addChildNode(trackerNode)
-        //        }
-        //
-        //        trackerNode.position = trackingPosition
-    }
-    
-    private func setSurface(trans: SCNMatrix4) {
-        trackingPosition = SCNVector3Make(trans.m41, trans.m42, trans.m43)
-        
-        if !foundSurface {
-            foundSurface = true
-            
-            let trackerPlane = SCNPlane(width: 0.2, height: 0.2)
-            trackerPlane.firstMaterial?.diffuse.contents = UIColor.red
-            trackerPlane.firstMaterial?.isDoubleSided = true
-            
-            trackerNode = SCNNode(geometry: trackerPlane)
-            trackerNode.eulerAngles.x = -.pi * 0.5
-            
-            sceneView.scene.rootNode.addChildNode(trackerNode)
-        }
-        
-        trackerNode.position = trackingPosition
+    func randomNumbers(firstNum: CGFloat, secondNumb: CGFloat) -> CGFloat{
+        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNumb) + min(firstNum, secondNumb)
     }
     
     
 }
+
