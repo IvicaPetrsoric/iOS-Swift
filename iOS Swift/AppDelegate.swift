@@ -16,9 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        window = UIWindow()
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
+        
+        let layout = UICollectionViewFlowLayout()
+        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(230, green: 32, blue: 31)
+        
+        // get rid of black bar ispod nav bar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        application.statusBarStyle = .lightContent // treba podesiti u info plist
+        
+        // notification bar/ status bar
+        let statusBarBackgroundView = UIView()
+        statusBarBackgroundView.backgroundColor = UIColor.rgb(194, green: 31, blue: 31)
+        
+        window?.addSubview(statusBarBackgroundView)
+        window?.addConstraintsWithFormat("H:|[v0]|", views: statusBarBackgroundView)
+        window?.addConstraintsWithFormat("V:|[v0(20)]", views: statusBarBackgroundView)
 
         return true
     }
