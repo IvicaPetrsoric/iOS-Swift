@@ -39,24 +39,35 @@ class ViewController: UIViewController {
         return view
     }()
     
-    let barChartView = BarChartView()
+    let barChartView1 = BarChartView()
+    let barChartView2 = BarChartView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = #colorLiteral(red: 0.9247675538, green: 0.9458522201, blue: 0.986253798, alpha: 1)
         
-        view.addSubview(customNavBar)
-        view.addSubview(barChartView)
+        view.stack(views:
+            customNavBar.withHeight(height: 150),
+                   view.stack(views:
+            barChartView1.withHeight(height: 200),
+            barChartView2.withHeight(height: 200),
+            spacing: 16).padTop(16),
+            UIView(),
+            spacing: 16
+        )
         
-        customNavBar.anchor(top: view.topAnchor, leading: view.leadingAnchor,
-                            bottom: nil, trailing: view.trailingAnchor,
-                            size: .init(width: 0, height: 150))
-        
-        barChartView.anchor(top: customNavBar.bottomAnchor, leading: view.leadingAnchor,
-                            bottom: nil, trailing: view.trailingAnchor,
-                            padding: .init(top: 32, left: 16, bottom: 0, right: 16),
-                            size: .init(width: 0, height: 200))
+//        view.addSubview(customNavBar)
+//        view.addSubview(barChartView)
+//
+//        customNavBar.anchor(top: view.topAnchor, leading: view.leadingAnchor,
+//                            bottom: nil, trailing: view.trailingAnchor,
+//                            size: .init(width: 0, height: 150))
+//
+//        barChartView.anchor(top: customNavBar.bottomAnchor, leading: view.leadingAnchor,
+//                            bottom: nil, trailing: view.trailingAnchor,
+//                            padding: .init(top: 32, left: 16, bottom: 0, right: 16),
+//                            size: .init(width: 0, height: 200))
     }
     
     override func viewDidLayoutSubviews() {
