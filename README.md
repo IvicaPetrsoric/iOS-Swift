@@ -17,6 +17,14 @@ Initial blank app
     <img src="images/circleProgressBar2.png" widht= 90 height = 180  hspace="0" />
     </p>
     
+  - StatisticsBarCharts
+    
+    Advanced Bar Charts with generics. 
+    
+    <p align="center">
+    <img src="images/statisticsCharts.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
   - PropertyAnimator
   
     Usage fractions of property animatior with bluer and scale effect.
