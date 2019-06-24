@@ -137,29 +137,3 @@ Initial blank app
     <p align="center">
     <img src="images/airplanesSeats.png" widht= 90 height = 180  hspace="0" />
     </p> 
-    
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
