@@ -1,7 +1,7 @@
 # iOS-Swift
 iOS features/small Apps
 
-**Concept**: by switching to various branches explore all kinds of features/smallApps/researches. 
+**Concept**: by switching to various branches explore all kinds of features/apps/researches. 
 
 # Master
 Initial blank app
@@ -137,3 +137,51 @@ Initial blank app
     <p align="center">
     <img src="images/airplanesSeats.png" widht= 90 height = 180  hspace="0" />
     </p> 
+
+# Apps
+
+  - AppStoreDemo 
+  
+    Base old version off AppStore.
+    
+    <p align="center">
+    <img src="images/appStoreDemo1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/appStoreDemo2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - Audible
+  
+    <p align="center">
+    <img src="images/audible1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/audible2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - FBMessenger
+  
+    Base FB Messenger UI and some functionalities.
+    
+    <p align="center">
+    <img src="images/fbMessenger1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/fbMessenger2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - YouTubeDemo (depricated)
+    
+    Base YouTube App.
+    
+    <p align="center">
+    <img src="images/youtube1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/youtube2.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/youtube3.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - TicTacToe
+  
+    Simple TicTacToe.
+    
+    <p align="center">
+    <img src="images/ticTacToe.png" widht= 90 height = 180  hspace="0" />
+    </p> 
+    
+    
+    
