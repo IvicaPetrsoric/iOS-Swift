@@ -183,5 +183,124 @@ Initial blank app
     <img src="images/ticTacToe.png" widht= 90 height = 180  hspace="0" />
     </p> 
     
+ # Research
+ 
+  - BLE 
+    - BeaconEmitter
+    
+        Emitting like a beacon.
+
+        <p align="center">
+        <img src="images/beaconEmitter.jpg" widht= 90 height = 180  hspace="0" />
+        </p> 
+     
+    - BeaconScanner
+
+        Scanning for near beacons, changing color based on distance
+
+        <p align="center">
+        <img src="images/beaconScanner1.jpg" widht= 90 height = 180  hspace="0" />
+        <img src="images/beaconScanner2.jpg" widht= 90 height = 180  hspace="0" />
+        </p>
+
+  - AR
+    - MagicBox
+    
+        Find your self inside a gray box.
+
+        <p align="center">
+        <img src="images/secretRoom.jpg" widht= 90 height = 180  hspace="0" />
+        </p> 
+        
+    - RollDice
+    
+        Rolling dices with AR.
+        
+        <p align="center">
+        <img src="images/rollDice1.jpg" widht= 90 height = 180  hspace="0" />
+        <img src="images/rollDice2.jpg" widht= 90 height = 180  hspace="0" />
+        </p> 
+        
+    - PlacingCircularObjects
+    
+        Placing circles with AR.
+        
+        <p align="center">
+        <img src="images/placingObjects.jpg" widht= 90 height = 180  hspace="0" />
+        </p> 
+        
+    - PlacingShapes
+       
+        Placing house shape with AR.
+        
+        <p align="center">
+        <img src="images/placingShapes.jpg" widht= 90 height = 180  hspace="0" />
+        </p> 
+        
+  - SwipingPageController
+  
+    Utilizing collection with pageController.
+    
+    <p align="center">
+    <img src="images/pagingController.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - DragAndDrop
+      
+    Simulate draging object to recycle bin.
+      
+    <p align="center">
+    <img src="images/dragAndDrop1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/dragAndDrop2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+     
+  - InfinitePagination
+  
+    By scrolling to 80% of scroll height pagination gets triggered.
+    
+    <p align="center">
+    <img src="images/infinitePagination.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - CustomInsertTableView
+  
+    Inserting rows from left and right with animations.
+    
+    <p align="center">
+    <img src="images/insertItemTableView1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/insertItemTableView2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - CarouselViewController
+  
+    <p align="center">
+    <img src="images/carouselViewController.png" widht= 90 height = 180  hspace="0" />
+    </p>
+  
+  - InputTextViewHeightEstimation
+  
+    Update textView height depening of rows of text.
+    
+    <p align="center">
+    <img src="images/inputTextViewHeightEstimation.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - GeneriTableViewController
+  
+    Utilizing generics for creating tableViews.
+    
+    <p align="center">
+    <img src="images/genericTableView1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/genericTableView2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - JSONDecode
+  
+    Utilizing new swift 4.2 JSON decode.
+    
+    <p align="center">
+    <img src="images/jsonDecode.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
     
     
