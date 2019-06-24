@@ -18,8 +18,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
+        window?.rootViewController = UINavigationController(rootViewController: ViewController())
 
+        return true
+    }
+    
+    //TEST IN SAFARI: deepLinkTest://test.DeepLinkingTest/inner
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        print("url \(url)")
+        print("url host: \(url.host!)")
+        print("url path: \(url.path)")
+        
+        let urlHost = url.host
+        let urlPath: String = url.path as String!
+        
+        if urlHost != "tosterHost" {
+            print("Host is not correct")
+            return false
+        }
+        
+        if urlPath == "/inner" {
+             window?.rootViewController = UINavigationController(rootViewController: TestViewController())
+        }
+        
+        self.window?.makeKeyAndVisible()
         return true
     }
 
