@@ -25,6 +25,24 @@ Initial blank app
     <img src="images/statisticsCharts.png" widht= 90 height = 180  hspace="0" />
     </p>
     
+  - FBLongPressEmojiPopUp
+  
+    By long pressing on screen hows the dialog with emojis.
+    
+    <p align="center">
+    <img src="images/fbPopUp1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/fbPopUp2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - FBShimmerEffect
+  
+    Shows the FB shimmer effect.
+    
+    <p align="center">
+    <img src="images/fbShimmerEffect1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/fbShimmerEffect2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
   - PropertyAnimator
   
     Usage fractions of property animatior with bluer and scale effect.
@@ -244,6 +262,15 @@ Initial blank app
         <p align="center">
         <img src="images/placingShapes.jpg" widht= 90 height = 180  hspace="0" />
         </p> 
+        
+  - DeepLinkingTest
+  
+    test deepLinking within app by using any browser with typing: deepLinkTest://test.DeepLinkingTest/inner
+    
+    <p align="center">
+    <img src="images/deepLinking1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/deepLinking2.png" widht= 90 height = 180  hspace="0" />
+    </p>
         
   - SwipingPageController
   
