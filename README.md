@@ -1,5 +1,4 @@
 # iOS-Swift
-iOS features/small Apps
 
 **Concept**: by switching to various branches explore all kinds of features/apps/researches. 
 
