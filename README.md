@@ -3,6 +3,59 @@ iOS features/small Apps
 
 **Concept**: by switching to various branches explore all kinds of features/apps/researches. 
 
+**NOTE**: by switching between branches requires killing/refresh xcode
+
+**Extra Files**:
+  - fun algorithms
+  - projects (requires **pod install**)
+  - scripts
+  - stanford 
+
+## Branches
+  - Features:
+    - CircleProgressBar
+    - StatisticsBarCharts
+    - FBLongPressEmojiPopUp
+    - FBShimmerEffect
+    - PropertyAnimator
+    - SwipingPage
+    - MagicGrid
+    - QRMaster
+    - StrechyHeaderCollectionView
+    - DateGroupMessages
+    - MapKitPins
+    - DrawingCanvas
+    - SimpleBarCharts
+    - FBStreamAnimation
+    - QuestionLikeTableView
+    - PhoneListTableView
+    - LeftSlideAnimations
+    - AirplaneSeats
+  - Apps:
+    - AppStoreDemo 
+    - Audible 
+    - FBMessenger 
+    - YouTubeDemo (depricated) 
+    - TicTacToe
+  - Research:
+    - BLE: 
+      - BeaconEmitter 
+      - BeaconScanner 
+    - AR: 
+      - MagicBox 
+      - RollDice 
+      - PlacingCircularObjects 
+      - PlacingShapes
+    - DeepLinkingTest 
+    - SwipingPageController 
+    - DragAndDrop 
+    - InfinitePagination 
+    - CustomInsertTableView 
+    - CarouselViewController 
+    - InputTextViewHeightEstimation 
+    - GeneriTableViewController 
+    - JSONDecode
+
 # Master
 Initial blank app
 
@@ -263,7 +316,7 @@ Initial blank app
         <img src="images/placingShapes.jpg" widht= 90 height = 180  hspace="0" />
         </p> 
         
-  - DeepLinkingTest
+  - DeepLinkingTest 
   
     test deepLinking within app by using any browser with typing: deepLinkTest://test.DeepLinkingTest/inner
     
