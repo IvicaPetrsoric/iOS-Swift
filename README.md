@@ -16,6 +16,7 @@
     - StatisticsBarCharts
     - FBLongPressEmojiPopUp
     - FBShimmerEffect
+    - CircularCollectionView 
     - PropertyAnimator
     - SwipingPage
     - MagicGrid
@@ -93,6 +94,14 @@ Initial blank app
     <p align="center">
     <img src="images/fbShimmerEffect1.png" widht= 90 height = 180  hspace="0" />
     <img src="images/fbShimmerEffect2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - CircularCollectionView 
+  
+    Simple circular collectionView
+    
+    <p align="center">
+    <img src="images/circularCollection.png" widht= 90 height = 180  hspace="0" />
     </p>
     
   - PropertyAnimator
