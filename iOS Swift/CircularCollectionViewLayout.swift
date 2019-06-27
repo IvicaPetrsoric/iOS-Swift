@@ -44,6 +44,14 @@ class CircularCollectionViewLayout: UICollectionViewLayout {
         return atan(itemSize.width / radius)
     }
     
+    var angleAtExtreme: CGFloat {
+        return collectionView!.numberOfItems(inSection: 0) > 0 ? -CGFloat(collectionView!.numberOfItems(inSection: 0) - 1) * anglePerItem : 0
+    }
+    
+    var angle: CGFloat {
+        return angleAtExtreme * collectionView!.contentOffset.x / (collectionViewContentSize.width - (collectionView!.bounds).width)
+    }
+    
     override var collectionViewContentSize: CGSize {
         return CGSize(width: CGFloat(collectionView!.numberOfItems(inSection: 0)) * itemSize.width,
                       height: collectionView!.bounds.height)
@@ -57,11 +65,30 @@ class CircularCollectionViewLayout: UICollectionViewLayout {
         super.prepare()
         
         let centerX = collectionView!.contentOffset.x + (collectionView!.bounds.width / 2.0)
-        attributesList = (0..<collectionView!.numberOfItems(inSection: 0)).map({ (i) -> CircularCollectionViewLayoutAttributes in
+        let anchorPointY = ((itemSize.height / 2.0) + radius) / itemSize.height
+        
+        // dont calculate for items outside bounds
+        let theta = atan2((collectionView!.bounds).width / 2.0, radius + (itemSize.height / 2.0) - ((collectionView!.bounds).height / 2.0))
+        var startIndex = 0
+        var endIndex = collectionView!.numberOfItems(inSection: 0) - 1
+       
+        if (angle < -theta) {
+            startIndex = Int(floor((-theta - angle) / anglePerItem))
+        }
+
+        endIndex = min(endIndex, Int(ceil((theta - angle) / anglePerItem)))
+
+        if (endIndex < startIndex) {
+            endIndex = 0
+            startIndex = 0
+        }
+        
+        attributesList = (startIndex...endIndex).map({ (i) -> CircularCollectionViewLayoutAttributes in
             let attributes = CircularCollectionViewLayoutAttributes(forCellWith: IndexPath(item: i, section: 0))
             attributes.size = self.itemSize
             attributes.center = CGPoint(x: centerX, y: collectionView!.bounds.midY)
-            attributes.angle = self.anglePerItem * CGFloat(i)
+            attributes.angle = self.angle + (self.anglePerItem * CGFloat(i))
+            attributes.anchorPoint = CGPoint(x: 0.5, y: anchorPointY)
             return attributes
         })
     }
@@ -72,6 +99,11 @@ class CircularCollectionViewLayout: UICollectionViewLayout {
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return attributesList[indexPath.row]
+    }
+    
+    // scrolling
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
     }
     
 }

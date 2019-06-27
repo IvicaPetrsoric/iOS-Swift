@@ -9,16 +9,18 @@
 import UIKit
 
 
-let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
     
-    let images: [String] = Bundle.main.paths(forResourcesOfType: "png", inDirectory: "Images") 
+    let reuseIdentifier = "Cell"
+    
+    let images: [String] = Bundle.main.paths(forResourcesOfType: "png", inDirectory: "Images")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Register cell classes
+
         collectionView!.register(UINib(nibName: "CircularCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+      
         let imageView = UIImageView(image: UIImage(named: "bg-dark.jpg"))
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         collectionView!.backgroundView = imageView
@@ -27,8 +29,6 @@ class CollectionViewController: UICollectionViewController {
 }
 
 extension CollectionViewController {
-    
-    // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
@@ -41,6 +41,10 @@ extension CollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = indexPath.item
+        print("Item \(item) with image \(images[item])")
+    }
     
     
 }
