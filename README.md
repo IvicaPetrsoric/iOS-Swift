@@ -1,5 +1,5 @@
 # iOS-Swift
-iOS features/small Apps
+iOS features/small Apps/ SwiftUI
 
 **Concept**: by switching to various branches explore all kinds of features/apps/researches. 
 
@@ -303,4 +303,73 @@ Initial blank app
     </p>
     
     
+# SwiftUI
+  - Stacking Essentials
+  
+    Testing stacking X, Y, Z
+  
+     <p align="center">
+    <img src="images/stacking.png" widht= 90 height = 180  hspace="0" />
+    </p>
     
+  - Animated bar charts
+    
+     <p align="center">
+    <img src="images/animatedBarCharts.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - Calculator
+  
+    base calculator
+    
+     <p align="center">
+    <img src="images/calculator.png" widht= 90 height = 180  hspace="0" />
+    </p>
+
+  - Calendar
+      
+     <p align="center">
+    <img src="images/calendar.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - Bindable
+      
+     <p align="center">
+    <img src="images/userByBindable.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - DynamicList
+      
+     <p align="center">
+    <img src="images/dynamicList.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - FB2019
+  
+    FB 2019 base layout
+    
+     <p align="center">
+    <img src="images/FB2019.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - FBGroup
+      
+     <p align="center">
+    <img src="images/FBGroup.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - FullScreenModal
+  
+    fullScreenModal as on old iOS
+    
+     <p align="center">
+    <img src="images/fullScreenModal1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/fullScreenModal2.png" widht= 90 height = 180  hspace="0" />
+    </p>
+    
+  - ImagePicker
+      
+     <p align="center">
+    <img src="images/listOfUsers1.png" widht= 90 height = 180  hspace="0" />
+    <img src="images/listOfUsers2.png" widht= 90 height = 180  hspace="0" />
+    </p>
