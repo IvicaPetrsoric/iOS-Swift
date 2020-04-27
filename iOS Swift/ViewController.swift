@@ -72,8 +72,8 @@ class ViewController: UIViewController {
         return slider
     }()
     
-    @objc fileprivate func handleSliderChane() {
-        canvas.setStrokeWidth(slider.value)
+    @objc fileprivate func handleSliderChane(slider: UISlider) {
+        canvas.setStrokeWidth(width: slider.value)
         print(slider.value)
     }
     
