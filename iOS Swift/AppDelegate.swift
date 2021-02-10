@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
-
+        window?.rootViewController = StrechyHeaderController(collectionViewLayout: StretchsHeaderLayout())
+        
         return true
     }
 
