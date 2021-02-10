@@ -34,7 +34,7 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         pc.currentPage = 0
         pc.numberOfPages = pages.count
         pc.currentPageIndicatorTintColor = .red
-        pc.pageIndicatorTintColor = .mainPink
+        pc.pageIndicatorTintColor = .blue
         pc.translatesAutoresizingMaskIntoConstraints = false
         return pc
     }()
@@ -44,7 +44,7 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         button.setTitle("Next", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.setTitleColor(.mainPink, for: .normal)
+        button.setTitleColor(.red, for: .normal)
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
@@ -63,6 +63,8 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         let bottomControlsStackView = UIStackView(arrangedSubviews: [previousButton, pageControl, nextButton])
         bottomControlsStackView.translatesAutoresizingMaskIntoConstraints = false
         bottomControlsStackView.distribution = .fillEqually
+        
+        pageControl.backgroundColor = .yellow
         
         view.addSubview(bottomControlsStackView)
         
