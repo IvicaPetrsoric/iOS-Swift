@@ -6,16 +6,29 @@
 //  Copyright © 2019 ivica petrsoric. All rights reserved.
 //
 
+
+
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, Storyboarded {
+    
+    weak var coordinator: MainCoordinator?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+//        view.backgroundColor = .red
     }
 
-
+    @IBAction func buyTapped(_ sender: UIButton) {
+        coordinator?.buySubscription()
+    }
+    
+    @IBAction func createAccountTapped(_ sender: UIButton) {
+        coordinator?.createAccount()
+    }
+    
+    
 }
 
