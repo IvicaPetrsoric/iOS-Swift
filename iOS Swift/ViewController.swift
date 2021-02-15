@@ -6,16 +6,25 @@
 //  Copyright © 2019 ivica petrsoric. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .red
+struct StartView: View {
+    
+    var body: some View {
+        VStack {
+            Color.yellow
+        }
     }
-
-
+    
 }
 
+
+
+
+struct StartView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            StartView()
+        }
+    }
+}
