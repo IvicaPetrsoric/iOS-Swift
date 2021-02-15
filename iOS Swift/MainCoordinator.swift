@@ -44,12 +44,14 @@ class MainCoordinator: Coordinator {
     
     func start() {
         let vc = ViewController.instantiate()
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func buySubscription() {
+    func buySubscription(to productType: Int) {
         let vc = BuyViewController.instantiate()
+        vc.selectedProduct = productType
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }

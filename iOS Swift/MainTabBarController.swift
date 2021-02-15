@@ -1,25 +1,24 @@
 //
-//  BuyViewController.swift
+//  MainTabBarController.swift
 //  iOS Swift
 //
-//  Created by Ivica Petrsoric on 14/02/2021.
+//  Created by Ivica Petrsoric on 15/02/2021.
 //  Copyright © 2021 ivica petrsoric. All rights reserved.
 //
 
 import UIKit
 
-class BuyViewController: UIViewController, Storyboarded {
+class MainTabBarController: UITabBarController {
 
-    weak var coordinator: MainCoordinator?
-    var selectedProduct = 0 {
-        didSet {
-            print("Product ", self.selectedProduct)
-        }
-    }
-
+    let main = MainCoordinator(navigationController: UINavigationController())
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        main.start()
+        
+        viewControllers = [main.navigationController]
 
         // Do any additional setup after loading the view.
     }

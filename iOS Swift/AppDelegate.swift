@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var coordinator: MainCoordinator?
+//    var coordinator: MainCoordinator?
     var window: UIWindow?
 
 
@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
         
-        let navController = UINavigationController()
-        coordinator = MainCoordinator(navigationController: navController)
-        coordinator?.start()
-        
+//        let navController = UINavigationController()
+//        coordinator = MainCoordinator(navigationController: navController)
+//        coordinator?.start()
+//
         window = UIWindow()
-        window?.rootViewController = navController
+        window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
 
         return true
