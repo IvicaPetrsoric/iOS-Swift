@@ -10,11 +10,11 @@ import Foundation
 
 import SwiftUI
 
-class HostingController: UIHostingController<ContentView> {
+class HostingController: UIHostingController<EmojiMemoryGameView> {
     
     init() {
         let game = EmojiMemoryGame()
-        super.init(rootView: ContentView(viewModel: game))
+        super.init(rootView: EmojiMemoryGameView(viewModel: game))
     }
     
     @objc required dynamic init?(coder aDecoder: NSCoder) {

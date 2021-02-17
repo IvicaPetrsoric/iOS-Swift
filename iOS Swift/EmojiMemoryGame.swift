@@ -12,9 +12,9 @@ import SwiftUI
 //    return "👻"
 //}
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     
-    private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
     static func createMemoryGame() -> MemoryGame<String> {
         let emojis: Array<String> = ["🎃", "👻", "🕷"]
@@ -22,7 +22,6 @@ class EmojiMemoryGame {
             return emojis[pairIndex]
         }
     }
-    
     
     
     // MARK: - Acces to the model
