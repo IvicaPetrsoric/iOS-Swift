@@ -34,30 +34,22 @@ struct CardView: View {
         }
     }
     
-    func body(for size: CGSize) -> some View {
-                     ZStack {
-            if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
-                Text(card.content)
-            } else {
-                if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius).fill()
-                }
+    @ViewBuilder
+    private func body(for size: CGSize) -> some View {
+        if card.isFaceUp || !card.isMatched {
+            ZStack {
+                Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(110-90), clockwise: true)
+                Text(card.content).font(Font.system(size: fontSize(for: size)))
             }
+    //        .modifier(Cardify(isFaceUp: card.isFaceUp))
+            .cardify(isFaceUp: card.isFaceUp)
         }
-        .font(Font.system(size: fontSize(for: size)))
     }
-    
 
-    
     // MARK: - Drawing Constants
     
-    let cornerRadius: CGFloat = 10
-    let edgeLineWidth: CGFloat = 3
-    
-    func fontSize(for size: CGSize) -> CGFloat {
-        min(size.width, size.height) * 0.75
+    private func fontSize(for size: CGSize) -> CGFloat {
+        min(size.width, size.height) * 0.7
     }
 }
 
@@ -66,9 +58,42 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
+//        Group {
             let game = EmojiMemoryGame()
-            EmojiMemoryGameView(viewModel: game)
+            game.chooseCard(card: game.cards[0])
+            return EmojiMemoryGameView(viewModel: game)
+//        }
+    }
+}
+
+
+
+// CARDIFY
+struct Cardify: ViewModifier {
+    
+    var isFaceUp: Bool
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            if isFaceUp {
+                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
+                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
+                content
+            } else {
+                RoundedRectangle(cornerRadius: cornerRadius).fill()
+            }
         }
     }
+    
+    private let cornerRadius: CGFloat = 10
+    private let edgeLineWidth: CGFloat = 3
+    
+}
+
+extension View {
+    
+    func cardify(isFaceUp: Bool) -> some View {
+        self.modifier(Cardify(isFaceUp: isFaceUp))
+    }
+    
 }
