@@ -9,15 +9,49 @@
 import Foundation
 
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable {
     
     var cards: Array<Card>
+    
+    var indeOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            let faceUpCardsIndices = cards.indices.filter { cards[$0].isFaceUp }.only
+            return faceUpCardsIndices
+            
+            //            for index in cards.indices {
+//                if cards[index].isFaceUp {
+//                    faceUpCardsIndices.append(index)
+//                }
+//            }
+            
+//            if faceUpCardsIndices.count == 1 {
+//                return faceUpCardsIndices.first
+//            } else {
+//                return nil
+//            }
+        } set {
+            for index in cards.indices {
+                cards[index].isFaceUp = index == newValue
+            }
+        }
+    }
     
     mutating func choose(card: Card) {
         print("Card choosen \(card)")
         
-        if let choosenIndex: Int = self.index(of: card) {
-            self.cards[choosenIndex].isFaceUp = !self.cards[choosenIndex].isFaceUp
+        if let choosenIndex: Int = self.index(of: card),
+           !cards[choosenIndex].isFaceUp, !cards[choosenIndex].isMatched  {
+            
+            if let potentionalMatchIndex = indeOfTheOneAndOnlyFaceUpCard {
+                if cards[choosenIndex].content == cards[potentionalMatchIndex].content {
+                    cards[choosenIndex].isMatched = true
+                    cards[potentionalMatchIndex].isMatched = true
+                }
+                
+                self.cards[choosenIndex].isFaceUp = true
+            } else {
+                indeOfTheOneAndOnlyFaceUpCard = choosenIndex
+            }
         }
     }
     
@@ -51,3 +85,9 @@ struct MemoryGame<CardContent> {
 }
 
 
+// ARRAY + ONLY
+extension Array {
+    var only: Element? {
+        count == 1 ? first : nil
+    }
+}
