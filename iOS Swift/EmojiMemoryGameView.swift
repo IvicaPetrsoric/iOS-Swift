@@ -13,14 +13,29 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        Grid(viewModel.cards) { card in
-            CardView(card: card).onTapGesture {
-                viewModel.chooseCard(card: card)
-            }.padding(5)
+        VStack {
+            Grid(viewModel.cards) { card in
+                CardView(card: card).onTapGesture {
+                    withAnimation(.linear(duration: 0.3)) {
+                        viewModel.chooseCard(card: card)
+                    }
+                }.padding(5)
+            }
+            .padding()
+            .foregroundColor(.orange)
+            .font(.largeTitle)
+            
+            Button {
+                withAnimation(.easeOut) {
+                    viewModel.resetGame()
+                }
+            } label: {
+                Text("Reset Game")
+            }
+
         }
-        .padding()
-        .foregroundColor(.orange)
-        .font(.largeTitle)
+        
+
     }
     
 }
@@ -34,15 +49,42 @@ struct CardView: View {
         }
     }
     
+    @State private var animateBonusRemaining: Double = 0
+    
+    private func startBonusTimeAnimation() {
+        animateBonusRemaining = card.bonusRemaining
+        withAnimation(.linear(duration: card.bonusTimeRemaining)) {
+            animateBonusRemaining = 0
+        }
+    }
+    
     @ViewBuilder
     private func body(for size: CGSize) -> some View {
         if card.isFaceUp || !card.isMatched {
             ZStack {
-                Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(110-90), clockwise: true)
-                Text(card.content).font(Font.system(size: fontSize(for: size)))
+                Group {
+                    if card.isConsumingBonusTime {
+                        Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(-animateBonusRemaining * 360 - 90), clockwise: true)
+                            .onAppear {
+                                startBonusTimeAnimation()
+                            }
+                    } else {
+                        Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(-card.bonusRemaining * 360 - 90), clockwise: true)
+                    }
+                }
+                .padding(5).opacity(0.4)
+
+
+
+                
+                Text(card.content)
+                    .font(Font.system(size: fontSize(for: size)))
+                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
+                    .animation(card.isMatched ? Animation.linear(duration: 1).repeatForever(autoreverses: false) : .default)
             }
     //        .modifier(Cardify(isFaceUp: card.isFaceUp))
             .cardify(isFaceUp: card.isFaceUp)
+            .transition(.scale)
         }
     }
 
@@ -69,20 +111,37 @@ struct ContentView_Previews: PreviewProvider {
 
 
 // CARDIFY
-struct Cardify: ViewModifier {
+struct Cardify: AnimatableModifier {
     
-    var isFaceUp: Bool
+    var rotation: Double
+    
+    var isFaceUp: Bool {
+        rotation < 90
+    }
+
+    init(isFaceUp: Bool) {
+        rotation = isFaceUp ? 0 : 180
+    }
+    
+    var animatableData: Double {
+        get { return rotation }
+        set { rotation = newValue }
+    }
     
     func body(content: Content) -> some View {
         ZStack {
-            if isFaceUp {
+            Group {
                 RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
                 content
-            } else {
-                RoundedRectangle(cornerRadius: cornerRadius).fill()
             }
+            .opacity(isFaceUp ? 1 : 0)
+
+            RoundedRectangle(cornerRadius: cornerRadius).fill()
+                .opacity(isFaceUp ? 0 : 1)
+
         }
+        .rotation3DEffect(Angle.degrees(rotation), axis: (0,1,0))
     }
     
     private let cornerRadius: CGFloat = 10
