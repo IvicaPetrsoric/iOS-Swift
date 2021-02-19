@@ -11,9 +11,9 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     
-    var indeOfTheOneAndOnlyFaceUpCard: Int? {
+    private var indeOfTheOneAndOnlyFaceUpCard: Int? {
         get {
             let faceUpCardsIndices = cards.indices.filter { cards[$0].isFaceUp }.only
             return faceUpCardsIndices
@@ -39,7 +39,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     mutating func choose(card: Card) {
         print("Card choosen \(card)")
         
-        if let choosenIndex: Int = self.index(of: card),
+//        if let choosenIndex: Int = self.index(of: card),
+        if let choosenIndex: Int = cards.firstIndex(matching: card),
            !cards[choosenIndex].isFaceUp, !cards[choosenIndex].isMatched  {
             
             if let potentionalMatchIndex = indeOfTheOneAndOnlyFaceUpCard {
@@ -55,15 +56,15 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    func index(of card: Card) -> Int? {
-        for index in 0..<self.cards.count {
-            if self.cards[index].id == card.id {
-                return index
-            }
-        }
-        
-        return nil
-    }
+//    func index(of card: Card) -> Int? {
+//        for index in 0..<self.cards.count {
+//            if self.cards[index].id == card.id {
+//                return index
+//            }
+//        }
+//
+//        return nil
+//    }
     
     init (numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = Array<Card>()
@@ -73,14 +74,77 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(content: content, id: pairIndex * 2))
             cards.append(Card(content: content, id: pairIndex * 2 + 1))
         }
+        
+        cards.shuffle()
     }
     
     struct Card: Identifiable {
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
+        var isFaceUp: Bool = false {
+            didSet {
+                if isFaceUp {
+                    startUsingBonusTime()
+                } else {
+                    stopUsingBonusTime()
+                }
+            }
+        }
+        var isMatched: Bool = false {
+            didSet {
+                stopUsingBonusTime()
+            }
+        }
+        
         var content: CardContent
         var id: Int
+        
+        // MARK:- Bonus Time
+        
+        var bonusTimeLimit: TimeInterval = 6
+        
+        private var faceUpTime: TimeInterval {
+            if let lastFaceUpDate = self.lastFaceUpDate {
+                return pastFaceUpTime + Date().timeIntervalSince(lastFaceUpDate)
+            } else {
+                return pastFaceUpTime
+            }
+        }
+        
+        var lastFaceUpDate: Date?
+        
+        var pastFaceUpTime: TimeInterval = 0
+        
+        var bonusTimeRemaining: TimeInterval {
+            max(0, bonusTimeLimit - faceUpTime)
+        }
+        
+        var bonusRemaining: Double {
+            (bonusTimeLimit > 0 && bonusTimeRemaining > 0) ? bonusTimeRemaining / bonusTimeLimit : 0
+        }
+        
+        var hasEarnedBonus: Bool {
+            isMatched && bonusTimeRemaining > 0
+        }
+        
+        var isConsumingBonusTime: Bool {
+            isFaceUp && !isMatched && bonusRemaining > 0
+        }
+        
+        private mutating func startUsingBonusTime() {
+            if isConsumingBonusTime, lastFaceUpDate == nil {
+                lastFaceUpDate = Date()
+            }
+        }
+        
+        private mutating func stopUsingBonusTime() {
+            pastFaceUpTime = faceUpTime
+            self.lastFaceUpDate = nil
+        }
     }
+    
+    
+    
+
+    
     
 }
 
