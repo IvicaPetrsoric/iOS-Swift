@@ -12,6 +12,8 @@
 		6B5DA2D025E26A14009A93F4 /* EmojiArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DA2CF25E26A14009A93F4 /* EmojiArt.swift */; };
 		6B5DA2D725E26D56009A93F4 /* EmojiArtExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DA2D625E26D56009A93F4 /* EmojiArtExtensions.swift */; };
 		6B5DA33525E2705C009A93F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DA33425E2705C009A93F4 /* SceneDelegate.swift */; };
+		6B5DA33925E28312009A93F4 /* OptionalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DA33825E28312009A93F4 /* OptionalImage.swift */; };
+		6B5DA33C25E28559009A93F4 /* AnimatableSystemFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DA33B25E28559009A93F4 /* AnimatableSystemFontModifier.swift */; };
 		6BACB91422BCE09E00A7D611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB91322BCE09E00A7D611 /* AppDelegate.swift */; };
 		6BACB91622BCE09E00A7D611 /* EmojiArtDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB91522BCE09E00A7D611 /* EmojiArtDocumentView.swift */; };
 		6BACB91922BCE09E00A7D611 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BACB91722BCE09E00A7D611 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 		6B5DA2CF25E26A14009A93F4 /* EmojiArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArt.swift; sourceTree = "<group>"; };
 		6B5DA2D625E26D56009A93F4 /* EmojiArtExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiArtExtensions.swift; sourceTree = "<group>"; };
 		6B5DA33425E2705C009A93F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		6B5DA33825E28312009A93F4 /* OptionalImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalImage.swift; sourceTree = "<group>"; };
+		6B5DA33B25E28559009A93F4 /* AnimatableSystemFontModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableSystemFontModifier.swift; sourceTree = "<group>"; };
 		6BACB91022BCE09E00A7D611 /* iOS Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BACB91322BCE09E00A7D611 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BACB91522BCE09E00A7D611 /* EmojiArtDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocumentView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 				6B5DA2A125DB048F009A93F4 /* HostingController.swift */,
 				6B5DA2CB25E26506009A93F4 /* EmojiArtDocument.swift */,
 				6BACB91522BCE09E00A7D611 /* EmojiArtDocumentView.swift */,
+				6B5DA33825E28312009A93F4 /* OptionalImage.swift */,
+				6B5DA33B25E28559009A93F4 /* AnimatableSystemFontModifier.swift */,
 				6B5DA2CF25E26A14009A93F4 /* EmojiArt.swift */,
 				6B5DA2D625E26D56009A93F4 /* EmojiArtExtensions.swift */,
 				6BACB92B22BCE5CB00A7D611 /* Extensions */,
@@ -169,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B5DA33925E28312009A93F4 /* OptionalImage.swift in Sources */,
 				6B5DA2D025E26A14009A93F4 /* EmojiArt.swift in Sources */,
 				6BACB91622BCE09E00A7D611 /* EmojiArtDocumentView.swift in Sources */,
 				6BACB91422BCE09E00A7D611 /* AppDelegate.swift in Sources */,
@@ -176,6 +183,7 @@
 				6B5DA2A225DB048F009A93F4 /* HostingController.swift in Sources */,
 				6BACB92A22BCE5C600A7D611 /* UIView+Layout.swift in Sources */,
 				6B5DA2D725E26D56009A93F4 /* EmojiArtExtensions.swift in Sources */,
+				6B5DA33C25E28559009A93F4 /* AnimatableSystemFontModifier.swift in Sources */,
 				6B5DA33525E2705C009A93F4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
