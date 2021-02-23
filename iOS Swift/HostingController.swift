@@ -10,10 +10,12 @@ import Foundation
 
 import SwiftUI
 
-class HostingController: UIHostingController<StartView> {
+class HostingController: UIHostingController<FlightsEnrouteView> {
     
     init() {
-        super.init(rootView: StartView())
+        let contentView = FlightsEnrouteView(flightSearch: FlightSearch(destination: "KSFO"))
+
+        super.init(rootView: contentView)
 
     }
     
