@@ -28,6 +28,7 @@
 		6BACB91B22BCE0A000A7D611 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BACB91A22BCE0A000A7D611 /* Assets.xcassets */; };
 		6BACB91E22BCE0A000A7D611 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BACB91C22BCE0A000A7D611 /* LaunchScreen.storyboard */; };
 		6BACB92A22BCE5C600A7D611 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB92922BCE5C600A7D611 /* UIView+Layout.swift */; };
+		6BFDA54825E7E99C009BC2C8 /* EmojiArt L14 in Resources */ = {isa = PBXBuildFile; fileRef = 6BFDA54725E7E99C009BC2C8 /* EmojiArt L14 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		6BACB91D22BCE0A000A7D611 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6BACB91F22BCE0A000A7D611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BACB92922BCE5C600A7D611 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		6BFDA54725E7E99C009BC2C8 /* EmojiArt L14 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "EmojiArt L14"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		6BACB91222BCE09E00A7D611 /* iOS Swift */ = {
 			isa = PBXGroup;
 			children = (
+				6BFDA54725E7E99C009BC2C8 /* EmojiArt L14 */,
 				6B7B8FDC25E3E951003A14A0 /* PaletteChooser.swift */,
 				6B7B8FD925E3BC6E003A14A0 /* Spinning.swift */,
 				6BACB91322BCE09E00A7D611 /* AppDelegate.swift */,
@@ -186,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BFDA54825E7E99C009BC2C8 /* EmojiArt L14 in Resources */,
 				6BACB91E22BCE0A000A7D611 /* LaunchScreen.storyboard in Resources */,
 				6BACB91B22BCE0A000A7D611 /* Assets.xcassets in Resources */,
 				6BACB91922BCE09E00A7D611 /* Main.storyboard in Resources */,
