@@ -13,9 +13,20 @@ import SwiftUI
 class HostingController: UIHostingController<FlightsEnrouteView> {
     
     init() {
-        let contentView = FlightsEnrouteView(flightSearch: FlightSearch(destination: "KSFO"))
+        // Get the managed object context from the shared persistent container.
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-        super.init(rootView: contentView)
+        // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
+        // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
+//        let airport = Airport.withICAO("KSFO", context: context)
+//        airport.fetchIncomingFlights()
+        
+        
+        let contentView = FlightsEnrouteView(flightSearch: FlightSearch(destination: "KSFO"))
+            .environment(\.managedObjectContext, context)
+
+
+        super.init(rootView: contentView as! FlightsEnrouteView)
 
     }
     
