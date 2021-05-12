@@ -10,10 +10,10 @@ import Foundation
 
 import SwiftUI
 
-class HostingController: UIHostingController<StartView> {
+class HostingController: UIHostingController<VideoListView> {
     
     init() {
-        super.init(rootView: StartView())
+        super.init(rootView: VideoListView())
 
     }
     
