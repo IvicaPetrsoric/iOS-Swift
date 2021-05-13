@@ -13,7 +13,7 @@ import SwiftUI
 class HostingController: UIHostingController<StartView> {
     
     init() {
-        super.init(rootView: StartView())
+        super.init(rootView: StartView(viewModel: StartView.ViewModel()))
 
     }
     
