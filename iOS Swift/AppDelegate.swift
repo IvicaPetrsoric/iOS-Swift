@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import SwiftUI
 
+@available(iOS 14.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    @StateObject private var store = Store()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        let contentView = StartView()
+            .environmentObject(store)
+        
         window = UIWindow()
+        window?.rootViewController = UIHostingController(rootView: contentView)
         window?.makeKeyAndVisible()
-        window?.rootViewController = HostingController()
 
         return true
     }

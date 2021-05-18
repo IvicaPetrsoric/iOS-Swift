@@ -1,0 +1,44 @@
+{
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "A87749C4",
+      "localizations" : [
+        {
+          "description" : "Verry filling and refreshing",
+          "displayName" : "Berry Blue",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.temporary.berry-blue",
+      "referenceName" : "Berry Blue",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "81EF6DFB",
+      "localizations" : [
+        {
+          "description" : "Refreshing Lemon! ",
+          "displayName" : "Lemon Berry",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.temporary.lemon-berry",
+      "referenceName" : "Lemon Berry",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}
