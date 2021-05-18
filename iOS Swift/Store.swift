@@ -70,6 +70,8 @@ class Store: NSObject, ObservableObject {
     
     private var purchaseCompletionHandler: PurchaseCompletionHandler?
     
+    private let userDefaultsKey = "completedPurchases"
+    
     override init() {
         super.init()
         
@@ -78,6 +80,12 @@ class Store: NSObject, ObservableObject {
         fetchProducts { products in
             print(products)
             self.allRecipies = products.map { Recipe(product: $0) }
+        }
+    }
+    
+    func loadStoredPurchases() {
+        if let storedPurchases = UserDefaults.standard.object(forKey: userDefaultsKey) as? [String] {
+            self.completedPurchases = storedPurchases
         }
     }
     
@@ -182,6 +190,11 @@ extension Store: SKPaymentTransactionObserver {
                 }
             }
         }
+        
+        if !completedPurchases.isEmpty {
+            UserDefaults.standard.setValue(completedPurchases, forKey: userDefaultsKey)
+        }
+        
     }
     
 }

@@ -70,9 +70,12 @@ struct StartView: View {
                             }
                         }
                     }
-                }            .navigationBarItems(trailing: Button("Restore") {
+                }.navigationBarItems(trailing: Button("Restore") {
                     store.restorePurchases()
                 })
+                .onAppear {
+                    store.loadStoredPurchases()
+                }
             }
             .navigationBarTitle(Text("Recipe Store"))
 
