@@ -12,8 +12,8 @@ import SwiftUI
 
 class HostingController: UIHostingController<StartView> {
     
-    init() {
-        super.init(rootView: StartView())
+    override init(rootView: StartView = StartView()) {
+        super.init(rootView: rootView)
 
     }
     

@@ -16,6 +16,8 @@ struct PersistenceController {
     
     init() {
         container = NSPersistentContainer(name: "TodoList")
+//        container = NSPersistentCloudKitContainer(name: "TodoList")
+
         
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
@@ -24,6 +26,9 @@ struct PersistenceController {
             
             print("Setup CoreData")
         }
+        
+//        container.viewContext.automaticallyMergesChangesFromParent = true
+//        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
     
     

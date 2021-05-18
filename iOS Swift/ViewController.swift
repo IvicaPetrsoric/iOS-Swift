@@ -16,13 +16,12 @@ struct TestCoreData: View {
     @Environment(\.managedObjectContext) var viewContext
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Task.date, ascending: false)])
+//    @FetchRequest(sortDescriptors: [])
     private var tasks: FetchedResults<Task>
     
     var body: some View {
-//        return Text("")
-        
-        if #available(iOS 14.0, *) {
-            NavigationView {
+        NavigationView {
+            List {
                 ForEach(tasks) { task in
                     Text(task.title ?? "Untitled")
                         .onTapGesture {
@@ -30,10 +29,16 @@ struct TestCoreData: View {
                         }
                 }.onDelete(perform: deleteTasks)
             }
-            .navigationTitle("Todo List")
-            .navigationBarItems(trailing: Button("Add Task") {
-                addTask()
-            })
+
+        }
+        .navigationBarTitle(Text("Todo List"))
+        .navigationBarItems(trailing: Button("Add Task") {
+            addTask()
+        })
+//        return Text("")
+        
+        if #available(iOS 14.0, *) {
+
         } else {
             // Fallback on earlier versions
         }
@@ -77,14 +82,11 @@ struct TestCoreData: View {
 
 
 struct StartView: View {
-    let persistenceContainer = PersistenceController.shared
 
     var body: some View {
         VStack {
             TestCoreData()
         }
-            .environment(\.managedObjectContext,
-                                       persistenceContainer.container.viewContext)
     }
     
 }

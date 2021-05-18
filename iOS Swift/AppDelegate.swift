@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,29 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        let starterView = StartView()
+            .environment(\.managedObjectContext,
+                                       persistenceContainer.container.viewContext)
         window = UIWindow()
+        window?.rootViewController = UINavigationController(rootViewController: UIHostingController(rootView: starterView))
         window?.makeKeyAndVisible()
-        window?.rootViewController = HostingController()
 
         return true
     }
 
 
 }
-
-//import SwiftUI
-//
-//@main
-//struct iOS_Swift: App {
-//    
-//    let persistenceContainer = PersistenceController.shared
-//
-//    
-//    var body: some Scene {
-//        WindowGroup {
-//            TestCoreData().environment(\.managedObjectContext,
-//                                       persistenceContainer.container.viewContext)
-//        }
-//    }
-//}
 
