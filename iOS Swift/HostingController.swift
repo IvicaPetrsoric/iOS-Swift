@@ -10,10 +10,11 @@ import Foundation
 
 import SwiftUI
 
-class HostingController: UIHostingController<StartView> {
+class HostingController: UIHostingController<WorkoutView> {
     
     init() {
-        super.init(rootView: StartView())
+        let data = Workout(title: "test", date: "test", duration: "test", sfSymbol: "test")
+        super.init(rootView: WorkoutView(workout: data))
 
     }
     
