@@ -14,6 +14,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .red
+        
+        let storyboard = UIStoryboard(name: "TextFieldViewController", bundle: nil)
+        let controller = storyboard.instantiateInitialViewController() as! TextFieldViewController
+        controller.modalPresentationStyle = .fullScreen
+        
+        navigationController?.present(controller, animated: true)
+//        navigationController?.pushViewController(controller, animated: true)
+
     }
 
 
