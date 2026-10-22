@@ -10,8 +10,12 @@ import SwiftUI
 
 struct StartView: View {
     
+    var i: Int = 0
+    var s: String?
+    
     var body: some View {
         VStack {
+            
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
@@ -19,6 +23,7 @@ struct StartView: View {
         }
         .padding()
     }
+    
     
 }
 
