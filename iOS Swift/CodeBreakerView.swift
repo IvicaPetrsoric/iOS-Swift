@@ -17,21 +17,47 @@ enum Match {
 
 struct CodeBreakerView: View {
     
-    @State var game = CodeBreaker()
+    @State var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
         
     var body: some View {
         VStack {
             view(for: game.masterCode)
-            view(for: game.guess)
-//            pegs(colors: game.attempts[0].pegs)
+            
+            ScrollView {
+                view(for: game.guess)
+                
+                ForEach(game.attempts.indices.reversed(), id: \.self) { index in
+                    view(for: game.attempts[index])
+                }
+            }
+
+            
+
         }
         .padding()
+    }
+    
+    var guessButton: some View {
+        Button("Guess") {
+            withAnimation {
+                game.attemptGuess()
+            }
+        }
+        .font(.system(size: 80))
+        .minimumScaleFactor(0.1)
     }
     
     func view(for code: Code) -> some View {
         HStack {
             ForEach(code.pegs.indices, id: \.self) { index in
                 RoundedRectangle(cornerRadius: 10)
+                    .overlay {
+                        if code.pegs[index] == Code.missing {
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder(Color.green)
+                        }
+                    }
+                    .contentShape(Rectangle())
                     .aspectRatio(1, contentMode: .fit)
                     .foregroundStyle(code.pegs[index])
                     .onTapGesture {
@@ -41,7 +67,14 @@ struct CodeBreakerView: View {
                     }
             }
             
-            MatchMarkers(match: [.exact, .inexact, .nomatch, .exact])
+            
+            
+            MatchMarkers(match: code.matches)
+                .overlay {
+                    if code.kind == .guess {
+                        guessButton
+                    }
+                }
         }
     }
     
