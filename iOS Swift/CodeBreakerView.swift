@@ -15,34 +15,42 @@ enum Match {
     case inexact
 }
 
-struct ContentView: View {
+struct CodeBreakerView: View {
+    
+    @State var game = CodeBreaker()
         
     var body: some View {
         VStack {
-            pegs(colors: [.red, .green, .green, .yellow])
-            pegs(colors: [.red, .blue, .green, .yellow])
-            pegs(colors: [.red, .green, .green, .blue])
+            view(for: game.masterCode)
+            view(for: game.guess)
+//            pegs(colors: game.attempts[0].pegs)
         }
         .padding()
     }
     
-    func pegs(colors: Array<Color>) -> some View {
+    func view(for code: Code) -> some View {
         HStack {
-            ForEach(colors.indices, id: \.self) { index in
+            ForEach(code.pegs.indices, id: \.self) { index in
                 RoundedRectangle(cornerRadius: 10)
                     .aspectRatio(1, contentMode: .fit)
-                    .foregroundStyle(colors[index])
+                    .foregroundStyle(code.pegs[index])
+                    .onTapGesture {
+                        if code.kind == .guess {
+                            game.changeGuessPeg(at: index)
+                        }
+                    }
             }
             
             MatchMarkers(match: [.exact, .inexact, .nomatch, .exact])
         }
     }
     
+
 }
 
 
 #Preview {
-    ContentView()
+    CodeBreakerView()
 }
 
 
@@ -51,7 +59,7 @@ struct ContentView: View {
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView()
+            CodeBreakerView()
         }
     }
 }
