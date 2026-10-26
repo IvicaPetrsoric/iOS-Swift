@@ -10,8 +10,10 @@ import SwiftUI
 
 struct MatchMarkers: View {
     
-    var match: [Match]
+    // MARK: - Data in
+    let match: [Match]
     
+    // MARK: - Body
     var body: some View {
         HStack {
             VStack {

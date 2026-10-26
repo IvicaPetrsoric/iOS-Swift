@@ -17,8 +17,12 @@ enum Match {
 
 struct CodeBreakerView: View {
     
-    @State var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
+    // MARK: DAta Owned by me
+    @State private var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
+    @State private var selection: Int = 0
         
+    // MARK: - Body
+    
     var body: some View {
         VStack {
             view(for: game.masterCode)
@@ -30,11 +34,21 @@ struct CodeBreakerView: View {
                     view(for: game.attempts[index])
                 }
             }
-
-            
-
+            pegChooser
         }
         .padding()
+    }
+    
+    var pegChooser: some View {
+        HStack {
+            ForEach(game.pegChoices, id: \.self) { peg in
+                Button{
+                    game.setGuessPeg(peg, at: selection)
+                } label: {
+                    PegView(peg: peg)
+                }
+            }
+        }
     }
     
     var guessButton: some View {
@@ -50,19 +64,11 @@ struct CodeBreakerView: View {
     func view(for code: Code) -> some View {
         HStack {
             ForEach(code.pegs.indices, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 10)
-                    .overlay {
-                        if code.pegs[index] == Code.missingPeg {
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(Color.green)
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .aspectRatio(1, contentMode: .fit)
-                    .foregroundStyle(code.pegs[index])
+                    PegView(peg: code.pegs[index])
                     .onTapGesture {
                         if code.kind == .guess {
-                            game.changeGuessPeg(at: index)
+                            selection = index
+//                            game.changeGuessPeg(at: index)
                         }
                     }
             }
