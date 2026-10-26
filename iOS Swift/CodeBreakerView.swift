@@ -28,50 +28,36 @@ struct CodeBreakerView: View {
             view(for: game.masterCode)
             
             ScrollView {
-                view(for: game.guess)
+                if !game.isOver {
+                    view(for: game.guess)
+                }
                 
                 ForEach(game.attempts.indices.reversed(), id: \.self) { index in
                     view(for: game.attempts[index])
                 }
             }
-            pegChooser
+            PegChooser(choices: game.pegChoices, onChoose: { peg in
+                game.setGuessPeg(peg, at: selection)
+                selection = (selection + 1) % game.masterCode.pegs.count
+            })
         }
         .padding()
     }
-    
-    var pegChooser: some View {
-        HStack {
-            ForEach(game.pegChoices, id: \.self) { peg in
-                Button{
-                    game.setGuessPeg(peg, at: selection)
-                } label: {
-                    PegView(peg: peg)
-                }
-            }
-        }
-    }
-    
+        
     var guessButton: some View {
         Button("Guess") {
             withAnimation {
                 game.attemptGuess()
+                selection = 0
             }
         }
-        .font(.system(size: 80))
-        .minimumScaleFactor(0.1)
+        .font(.system(size: GuessButton.maximusFontSize))
+        .minimumScaleFactor(GuessButton.scaleFactor)
     }
     
     func view(for code: Code) -> some View {
         HStack {
-            ForEach(code.pegs.indices, id: \.self) { index in
-                    PegView(peg: code.pegs[index])
-                    .onTapGesture {
-                        if code.kind == .guess {
-                            selection = index
-//                            game.changeGuessPeg(at: index)
-                        }
-                    }
-            }
+            CodeView(code: code, selection: $selection)
             
             Rectangle().foregroundStyle(Color.clear).aspectRatio(1, contentMode: .fit)
                 .overlay {
@@ -86,6 +72,12 @@ struct CodeBreakerView: View {
             }
     }
     
+    struct GuessButton {
+        static let minimumFontSize: CGFloat = 8
+        static let maximusFontSize: CGFloat = 80
+        static let scaleFactor = minimumFontSize / maximusFontSize
+    }
+    
 
 }
 
@@ -94,7 +86,12 @@ struct CodeBreakerView: View {
     CodeBreakerView()
 }
 
-
+extension Color {
+    
+    static func gray(_ brightness: CGFloat) -> Color {
+        return Color(hue: 148/360, saturation: 0, brightness: brightness)
+    }
+}
 
 
 struct StartView_Previews: PreviewProvider {

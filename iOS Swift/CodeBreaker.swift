@@ -12,7 +12,7 @@ typealias Peg = Color
 
 struct CodeBreaker {
     
-    var masterCode: Code = Code(kind: .master)
+    var masterCode: Code = Code(kind: .master(isHidden: true))
     var guess: Code = Code(kind: .guess)
     var attempts: [Code] = []
     let pegChoices: [Peg]
@@ -20,6 +20,12 @@ struct CodeBreaker {
     init (pegChoices: [Peg] = [.red, .green, .blue, .yellow]) {
         self.pegChoices = pegChoices
         masterCode.randomize(from: pegChoices)
+        
+        print("Master code: \(masterCode.pegs)")
+    }
+    
+    var isOver: Bool {
+        attempts.last?.pegs == masterCode.pegs
     }
     
     mutating func attemptGuess() {
@@ -27,6 +33,10 @@ struct CodeBreaker {
         attempt.kind = .attempt(guess.match(against: masterCode))
         attempts.append(attempt)
         guess.reset()
+        
+        if isOver {
+            masterCode.kind = .master(isHidden: false)
+        }
     }
     
     mutating func setGuessPeg(_ peg: Peg, at index: Int) {
