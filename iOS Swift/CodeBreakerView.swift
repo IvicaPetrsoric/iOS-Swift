@@ -17,6 +17,9 @@ enum Match {
 
 struct CodeBreakerView: View {
     
+    // MARK: Data in
+    @Environment(\.words) private var words
+    
     // MARK: DAta Owned by me
     @State private var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
     @State private var selection: Int = 0
@@ -50,6 +53,8 @@ struct CodeBreakerView: View {
                 game.attemptGuess()
                 selection = 0
             }
+            
+            print("random word = \(words.random(length: 5) ?? "None")")
         }
         .font(.system(size: GuessButton.maximusFontSize))
         .minimumScaleFactor(GuessButton.scaleFactor)
