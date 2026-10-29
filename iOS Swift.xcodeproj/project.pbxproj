@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6B1C171C308FB52F0079FAF7 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1C171B308FB52F0079FAF7 /* CodeView.swift */; };
 		6B1C1720308FB76C0079FAF7 /* PegChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1C171F308FB76C0079FAF7 /* PegChooser.swift */; };
-		6B1C1722308FC00E0079FAF7 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1C1721308FC00E0079FAF7 /* Words.swift */; };
 		6B3185D4308A3A4000FA4C9C /* MatchMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3185D3308A3A4000FA4C9C /* MatchMarkers.swift */; };
 		6B5DA2A225DB048F009A93F4 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DA2A125DB048F009A93F4 /* HostingController.swift */; };
 		6BACB91422BCE09E00A7D611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB91322BCE09E00A7D611 /* AppDelegate.swift */; };
@@ -18,15 +17,12 @@
 		6BACB91B22BCE0A000A7D611 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BACB91A22BCE0A000A7D611 /* Assets.xcassets */; };
 		6BACB91E22BCE0A000A7D611 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BACB91C22BCE0A000A7D611 /* LaunchScreen.storyboard */; };
 		6BACB92A22BCE5C600A7D611 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BACB92922BCE5C600A7D611 /* UIView+Layout.swift */; };
-		6BCF9824308B601A006BF0AF /* CodeBreaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCF9823308B601A006BF0AF /* CodeBreaker.swift */; };
-		6BCF9827308CE35C006BF0AF /* Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCF9826308CE35C006BF0AF /* Code.swift */; };
 		6BCF9829308D548D006BF0AF /* PegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCF9828308D548D006BF0AF /* PegView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6B1C171B308FB52F0079FAF7 /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		6B1C171F308FB76C0079FAF7 /* PegChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegChooser.swift; sourceTree = SOURCE_ROOT; };
-		6B1C1721308FC00E0079FAF7 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		6B3185D3308A3A4000FA4C9C /* MatchMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchMarkers.swift; sourceTree = "<group>"; };
 		6B5DA2A125DB048F009A93F4 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		6BACB91022BCE09E00A7D611 /* iOS Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,10 +33,12 @@
 		6BACB91D22BCE0A000A7D611 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6BACB91F22BCE0A000A7D611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BACB92922BCE5C600A7D611 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
-		6BCF9823308B601A006BF0AF /* CodeBreaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBreaker.swift; sourceTree = "<group>"; };
-		6BCF9826308CE35C006BF0AF /* Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code.swift; sourceTree = "<group>"; };
 		6BCF9828308D548D006BF0AF /* PegView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6B1C1723308FDAD60079FAF7 /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6BACB90D22BCE09E00A7D611 /* Frameworks */ = {
@@ -74,10 +72,8 @@
 			children = (
 				6BACB91322BCE09E00A7D611 /* AppDelegate.swift */,
 				6B5DA2A125DB048F009A93F4 /* HostingController.swift */,
-				6BCF9823308B601A006BF0AF /* CodeBreaker.swift */,
-				6BCF9826308CE35C006BF0AF /* Code.swift */,
+				6B1C1723308FDAD60079FAF7 /* Model */,
 				6BACB91522BCE09E00A7D611 /* CodeBreakerView.swift */,
-				6B1C1721308FC00E0079FAF7 /* Words.swift */,
 				6B1C171B308FB52F0079FAF7 /* CodeView.swift */,
 				6BCF9828308D548D006BF0AF /* PegView.swift */,
 				6B1C171F308FB76C0079FAF7 /* PegChooser.swift */,
@@ -121,6 +117,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6B1C1723308FDAD60079FAF7 /* Model */,
 			);
 			name = "iOS Swift";
 			productName = "iOS Swift";
@@ -185,10 +184,7 @@
 				6BACB92A22BCE5C600A7D611 /* UIView+Layout.swift in Sources */,
 				6B1C1720308FB76C0079FAF7 /* PegChooser.swift in Sources */,
 				6B3185D4308A3A4000FA4C9C /* MatchMarkers.swift in Sources */,
-				6BCF9827308CE35C006BF0AF /* Code.swift in Sources */,
-				6BCF9824308B601A006BF0AF /* CodeBreaker.swift in Sources */,
 				6B1C171C308FB52F0079FAF7 /* CodeView.swift in Sources */,
-				6B1C1722308FC00E0079FAF7 /* Words.swift in Sources */,
 				6BCF9829308D548D006BF0AF /* PegView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
