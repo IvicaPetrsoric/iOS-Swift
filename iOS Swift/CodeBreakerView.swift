@@ -20,8 +20,10 @@ struct CodeBreakerView: View {
     // MARK: Data in
     @Environment(\.words) private var words
     
+    @Binding var game: CodeBreaker
+    
     // MARK: DAta Owned by me
-    @State private var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
+//    @State private var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
 
     @State private var selection: Int = 0
     @State private var restarting = false
@@ -30,15 +32,9 @@ struct CodeBreakerView: View {
     // MARK: - Body
     
     var body: some View {
-        VStack {
-            
-            Button("Restart", systemImage: "arrow.circlepath" ,action: restart)
-            
+        VStack {            
             CodeView(code: game.masterCode) {
-                ElapsedTime(startTime: game.startTime, endTime: game.endTime)
-                    .flexibleSystemFont()
-                    .monospaced()
-                    .lineLimit(1)
+
             }
 
             ScrollView {
@@ -65,7 +61,20 @@ struct CodeBreakerView: View {
                 PegChooser(choices: game.pegChoices, onChoose: changePegAtSelection)
                     .transition(.pegChooser)
             }
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Restart", systemImage: "arrow.circlepath" ,action: restart)
+
+            }
             
+            ToolbarItem {
+                ElapsedTime(startTime: game.startTime, endTime: game.endTime)
+    //                .flexibleSystemFont()
+                    .monospaced()
+                    .lineLimit(1)
+            }
+
         }
         .padding()
     }
@@ -117,14 +126,17 @@ struct CodeBreakerView: View {
 
 
 #Preview {
-    CodeBreakerView()
+    @Previewable @State var game = CodeBreaker(name: "Mastermind", pegChoices: [.red, .blue, .green, .yellow])
+    CodeBreakerView(game: $game)
 }
 
 
 struct StartView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
-            CodeBreakerView()
+            @State var game = CodeBreaker(name: "Mastermind", pegChoices: [.red, .blue, .green, .yellow])
+            CodeBreakerView(game: $game)
         }
     }
 }

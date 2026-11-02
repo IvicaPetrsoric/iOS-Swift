@@ -10,10 +10,10 @@ import Foundation
 
 import SwiftUI
 
-class HostingController: UIHostingController<CodeBreakerView> {
+class HostingController: UIHostingController<GameChooser> {
     
     init() {
-        super.init(rootView: CodeBreakerView())
+        super.init(rootView: GameChooser())
 
     }
     

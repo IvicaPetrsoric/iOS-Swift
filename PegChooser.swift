@@ -14,7 +14,7 @@ struct PegChooser: View {
     let choices: [Peg]
     
     // MARK: Data out function
-    let onChoose: ((Peg) -> Void)?
+    var onChoose: ((Peg) -> Void)?
         
     // MARK: - Body
     var body: some View {
