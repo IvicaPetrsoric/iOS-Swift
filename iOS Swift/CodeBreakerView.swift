@@ -20,7 +20,7 @@ struct CodeBreakerView: View {
     // MARK: Data in
     @Environment(\.words) private var words
     
-    @Binding var game: CodeBreaker
+    let game: CodeBreaker
     
     // MARK: DAta Owned by me
 //    @State private var game = CodeBreaker(pegChoices: [.red, .green, .blue, .yellow])
@@ -127,7 +127,7 @@ struct CodeBreakerView: View {
 
 #Preview {
     @Previewable @State var game = CodeBreaker(name: "Mastermind", pegChoices: [.red, .blue, .green, .yellow])
-    CodeBreakerView(game: $game)
+    CodeBreakerView(game: game)
 }
 
 
@@ -136,7 +136,7 @@ struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             @State var game = CodeBreaker(name: "Mastermind", pegChoices: [.red, .blue, .green, .yellow])
-            CodeBreakerView(game: $game)
+            CodeBreakerView(game: game)
         }
     }
 }
