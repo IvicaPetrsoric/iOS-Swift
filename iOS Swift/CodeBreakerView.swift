@@ -50,10 +50,10 @@ struct CodeBreakerView: View {
                     .opacity(restarting ? 0 : 1)
                 }
                 
-                ForEach(game.attempts.indices.reversed(), id: \.self) { index in
-                    CodeView(code: game.attempts[index]) {
-                        let showmarkers = !hideMostRecentMarkers || index != game.attempts.count - 1
-                        if showmarkers, let matches = game.attempts[index].matches {
+                ForEach(game.attempts, id: \.pegs) { attempt in
+                    CodeView(code: attempt) {
+                        let showmarkers = !hideMostRecentMarkers || attempt.pegs != game.attempts.first?.pegs
+                        if showmarkers, let matches = attempt.matches {
                             MatchMarkers(match:  matches)
                         }
                     }
