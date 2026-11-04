@@ -78,9 +78,8 @@
 		6BACB91222BCE09E00A7D611 /* iOS Swift */ = {
 			isa = PBXGroup;
 			children = (
-				6BAFD07F3098CDD900E71BE0 /* GameSummary.swift */,
-				6B3186663094BD4000BEBC27 /* ElapsedTime.swift */,
 				6BACB91322BCE09E00A7D611 /* AppDelegate.swift */,
+				6BAFD07F3098CDD900E71BE0 /* GameSummary.swift */,
 				6B5DA2A125DB048F009A93F4 /* HostingController.swift */,
 				6BAFD07D3098C8A500E71BE0 /* GameChooser.swift */,
 				6B1C1723308FDAD60079FAF7 /* Model */,
@@ -90,6 +89,7 @@
 				6BCF9828308D548D006BF0AF /* PegView.swift */,
 				6B1C171F308FB76C0079FAF7 /* PegChooser.swift */,
 				6B3185D3308A3A4000FA4C9C /* MatchMarkers.swift */,
+				6B3186663094BD4000BEBC27 /* ElapsedTime.swift */,
 				6BACB92B22BCE5CB00A7D611 /* Extensions */,
 				6BACB92522BCE0DE00A7D611 /* Supporting Files */,
 				6BACB91F22BCE0A000A7D611 /* Info.plist */,
