@@ -12,10 +12,11 @@ struct GameChooser: View {
     
     // MARK: Data owned by me
     @State private var games: [CodeBreaker] = []
-    
+    @State private var selection: CodeBreaker? = nil
+        
     var body: some View {
-        NavigationStack {
-            List {
+        NavigationSplitView(columnVisibility: .constant(.all)) {
+            List(selection: $selection) {
                 ForEach(games) { game in
                     NavigationLink(value: game) {
                         GameSummary(game: game)
@@ -31,21 +32,26 @@ struct GameChooser: View {
                     games.move(fromOffsets: offset, toOffset: destination)
                 }
             }
-            .navigationDestination(for: CodeBreaker.self) { game in
-                CodeBreakerView(game: game)
-            }
-            .navigationDestination(for: [Peg].self) { pegs in
-                PegChooser(choices: pegs)
-            }
+            .navigationTitle("CodeBreaker")
             .listStyle(.plain)
             .toolbar {
                 EditButton()
             }
+        }  detail: {
+            if let selection = selection {
+                CodeBreakerView(game: selection)
+                    .navigationTitle(selection.name)
+                    .navigationBarTitleDisplayMode(.inline)
+            } else {
+                Text("Choose a game")
+            }
         }
+        .navigationSplitViewStyle(.balanced)
         .onAppear {
             games.append(CodeBreaker(name: "Mastermind", pegChoices: [.red, .blue, .green, .yellow]))
             games.append(CodeBreaker(name: "Earth Tones", pegChoices: [.orange, .brown, .black, .yellow, .green]))
             games.append(CodeBreaker(name: "Undersea", pegChoices: [.blue, .indigo, .cyan]))
+            selection = games.first
         }
     }
 }
