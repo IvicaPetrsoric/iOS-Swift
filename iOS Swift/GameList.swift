@@ -13,6 +13,8 @@ struct GameList: View {
     @Binding var selection: CodeBreaker?
     
     @State private var games: [CodeBreaker] = []
+    @State private var showGameEditor: Bool = false
+    @State private var gameToEdit: CodeBreaker?
 
     var body: some View {
         List(selection: $selection) {
@@ -39,11 +41,23 @@ struct GameList: View {
         .listStyle(.plain)
         .toolbar {
             Button("Add Game", systemImage: "plus") {
-                withAnimation {
-                    let newGame = CodeBreaker(name: "Untitlrd", pegChoices: [.red, .blue])
-                    games.append(newGame)
+                gameToEdit = CodeBreaker(name: "Untitlrd", pegChoices: [.red, .blue])
+            }
+            .onChange(of: gameToEdit) { _ in
+                showGameEditor = gameToEdit != nil
+            }
+            .sheet(isPresented: $showGameEditor, onDismiss: {
+                if let gameToEdit {
+                    games.insert(gameToEdit, at: 0)
+                }
+                
+                gameToEdit = nil
+            }) {
+                if let gameToEdit {
+                    GameEditor(game: gameToEdit)
                 }
             }
+            
             EditButton()
         }
         .onAppear {
