@@ -19,6 +19,7 @@ struct CodeBreakerView: View {
     
     // MARK: Data in
     @Environment(\.words) private var words
+    @Environment(\.scenePhase) private var scenePhase
     
     let game: CodeBreaker
     
@@ -63,6 +64,7 @@ struct CodeBreakerView: View {
                     .frame(maxHeight: 90)
             }
         }
+        .modifier(ElapsedTimeTracker(game: game))
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("Restart", systemImage: "arrow.circlepath" ,action: restart)
@@ -70,7 +72,7 @@ struct CodeBreakerView: View {
             }
             
             ToolbarItem {
-                ElapsedTime(startTime: game.startTime, endTime: game.endTime)
+                ElapsedTime(startTime: game.startTime, endTime: game.endTime, elapsedTime: game.elapsedTime)
     //                .flexibleSystemFont()
                     .monospaced()
                     .lineLimit(1)
@@ -123,6 +125,43 @@ struct CodeBreakerView: View {
 //            print("random word = \(words.random(length: 5) ?? "None")")
     }
 
+}
+
+//extension View {
+//    func trackElapsedTime(in game: CodeBreaker) -> some View {
+//        self.modifier(ElapsedTimeTracker(game: game))
+//
+//    }
+//}
+
+struct ElapsedTimeTracker: ViewModifier {
+    
+    @Environment(\.scenePhase) private var scenePhase
+    let game: CodeBreaker
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                game.startTimer()
+            }
+            .onDisappear {
+                game.pauseTimer()
+            }
+            .onChange(of: game) { oldGame, newGame in
+                oldGame.pauseTimer()
+                newGame.startTimer()
+            }
+            .onChange(of: scenePhase, {
+                switch scenePhase {
+                case .active:
+                    game.startTimer()
+                case .background:
+                    game.pauseTimer()
+                default:
+                    break
+                }
+            })
+    }
 }
 
 
