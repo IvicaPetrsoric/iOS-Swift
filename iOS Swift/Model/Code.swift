@@ -8,21 +8,35 @@
 
 
 import SwiftUI
+import SwiftData
 
-struct Code: Hashable {
-    var kind: Kind
-    var pegs: [Peg] = Array(repeating: Peg.missing, count: 4)
+enum Match: String {
+    case nomatch
+    case exact
+    case inexact
+}
+
+@Model class Code: Hashable {
     
-    static let missingPeg: Peg = .clear
+    var _kind: String = Kind.unknown.description
+    var pegs: [Peg]
     
-    enum Kind: Hashable, Equatable {
-        case master(isHidden: Bool)
-        case guess
-        case attempt([Match])
-        case unknown
+    var kind: Kind {
+        get {
+            return Kind(_kind)
+        } set {
+            _kind = newValue.description
+        }
     }
     
-    mutating func randomize(from pegChoices: [Peg]) {
+    static let missingPeg: Peg = ""
+    
+    init(kind: Kind, pegs: [Peg]  = Array(repeating: "", count: 4)) {
+        self.pegs = pegs
+        self.kind = kind
+    }
+    
+    func randomize(from pegChoices: [Peg]) {
         for index in pegs.indices {
             pegs[index] = pegChoices.randomElement() ?? Code.missingPeg
         }
@@ -39,7 +53,7 @@ struct Code: Hashable {
         }
     }
     
-    mutating func reset() {
+    func reset() {
         pegs = Array(repeating: Code.missingPeg, count: 4)
     }
     
