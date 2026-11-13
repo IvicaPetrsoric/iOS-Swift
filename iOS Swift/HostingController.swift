@@ -7,18 +7,25 @@
 //
 
 import Foundation
-
 import SwiftUI
+import SwiftData
 
-class HostingController: UIHostingController<GameChooser> {
-    
+class HostingController: UIHostingController<AnyView> {
+
     init() {
-        super.init(rootView: GameChooser())
+        let container = try! ModelContainer(
+            for: CodeBreaker.self
+        )
 
+        super.init(
+            rootView: AnyView(
+                GameChooser()
+                    .modelContainer(container)
+            )
+        )
     }
-    
-    @objc required dynamic init?(coder aDecoder: NSCoder) {
+
+    @objc required dynamic init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
