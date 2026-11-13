@@ -9,15 +9,16 @@
 import SwiftUI
 
 extension EnvironmentValues {
-    @Entry var words = Words.shared
+    @Entry var words: Words?
 }
 
+@MainActor
 @Observable
 class Words {
     
     private var words = Dictionary<Int, Set<String>>()
     
-    static var shared = Words(from: URL(string: "https://web.stanford.edu/class/cs193p/common.words"))
+    static let shared = Words(from: URL(string: "https://web.stanford.edu/class/cs193p/common.words"))
     
     private init(from url: URL? = nil) {
         Task {

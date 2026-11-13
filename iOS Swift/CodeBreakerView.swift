@@ -8,13 +8,6 @@
 
 import SwiftUI
 
-
-enum Match {
-    case nomatch
-    case exact
-    case inexact
-}
-
 struct CodeBreakerView: View {
     
     // MARK: Data in
@@ -161,6 +154,21 @@ struct ElapsedTimeTracker: ViewModifier {
                     break
                 }
             })
+    }
+}
+
+extension CodeBreaker {
+    
+    convenience init(name: String = "Cod Breaker", pegChoices: [Color]) {
+        self.init(name: name, pegChoices: pegChoices.map(\.hex))
+    }
+    
+    var pegColorChoices: [Color] {
+        get {
+            pegChoices.map { Color(hex: $0) }
+        } set {
+            pegChoices = newValue.map(\.hex)    
+        }
     }
 }
 

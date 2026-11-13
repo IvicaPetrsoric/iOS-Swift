@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PegChoicesChooser: View {
     
-    @Binding var pegChoices: [Peg]
+    @Binding var pegChoices: [Color]
     
     var body: some View {
         List {
@@ -52,7 +52,7 @@ struct PegChoicesChooser: View {
 }
 
 #Preview {
-    @Previewable @State var pegChoices: [Peg] = .init(repeating: .red, count: 4)
+    @Previewable @State var pegChoices: [Color] = .init(repeating: .red, count: 4)
     PegChoicesChooser(pegChoices: $pegChoices)
         .onChange(of: pegChoices) {
             print("game pegs changed to \(pegChoices)")
